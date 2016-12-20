@@ -10,23 +10,27 @@ import (
 )
 
 var (
-	bucketName, fileName string
+	bucketName, fileName, localFile string
 )
 
 func main() {
 
 	session, err := session.NewSession()
 	if err != nil {
-		fmt.Println("Failed to create AWS session,", err)
+		panic(err)
 	}
 
 	flag.StringVar(&bucketName,"bucket","","Enter the name of the s3 bucket")
-	flag.StringVar(&fileName,"filename","","Enter the name of the file")
+	flag.StringVar(&fileName,"filename","","Enter the name or path of the file")
+	flag.StringVar(&localFile,"localfile","","Optional. Use to define the file you want to upload if the name is different from what's declared with the 'filename' option ")
 
 	flag.Parse()
 
+	var fileToUpload string
 
-	var fileToUpload  string = fileName
+	if len(localFile) == 0 {
+		fileToUpload = fileName
+	}
 
 	file, err := os.Open(fileToUpload)
 	if err != nil {
@@ -57,10 +61,6 @@ func main() {
 	if err != nil {
 		fmt.Println(err)
 	} else {
-		fmt.Printf("The upload resulted in: %v", result)
+		fmt.Printf("The upload resulted in:\n%v", result)
 	}
-
-
-
 }
-
