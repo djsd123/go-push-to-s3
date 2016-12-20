@@ -15,7 +15,7 @@ var (
 
 func main() {
 
-	session, err := session.NewSession()
+	sesh, err := session.NewSession()
 	if err != nil {
 		panic(err)
 	}
@@ -48,7 +48,7 @@ func main() {
 	fileBytes := bytes.NewReader(buffer)
 
 	// Uploader Instance
-	UploadInst := s3manager.NewUploader(session)
+	UploadInst := s3manager.NewUploader(sesh)
 
 	// Upload input params
 	uploadParams := &s3manager.UploadInput{
