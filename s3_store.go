@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"os"
 	"bytes"
-	"flag"
+	"launchpad.net/gnuflag"
 )
 
 var (
@@ -20,11 +20,12 @@ func main() {
 		panic(err)
 	}
 
-	flag.StringVar(&bucketName,"bucket","","Enter the name of the s3 bucket")
-	flag.StringVar(&fileName,"filename","","Enter the name or path of the file")
-	flag.StringVar(&localFile,"localfile","","Optional. Use to define the file you want to upload if the name is different from what's declared with the 'filename' option ")
+	gnuflag.StringVar(&bucketName,"bucket","","Enter the name of the s3 bucket")
+	gnuflag.StringVar(&fileName,"filename","","Enter the name or path of the file")
+	gnuflag.StringVar(&localFile,"localfile","","Optional. Use to define the file you want to upload if the name is different from what's declared with the 'filename' option ")
 
-	flag.Parse()
+	gnuflag.Parse(true)
+
 
 	var fileToUpload string
 
